@@ -55,22 +55,42 @@
     <UnityVersion>2022.3.55f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.55f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.55f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Idyllic Fantasy Nature\Scripts\ButterflySpawn.cs" />
-    <Compile Include="Assets\Idyllic Fantasy Nature\Scripts\VegetationBendControl.cs" />
-    <Compile Include="Assets\Idyllic Fantasy Nature\Scripts\ExitGame.cs" />
-    <Compile Include="Assets\Idyllic Fantasy Nature\Scripts\ButterflySpawnArea.cs" />
-    <Compile Include="Assets\Idyllic Fantasy Nature\Scripts\BushLeafTrigger.cs" />
-    <Compile Include="Assets\Idyllic Fantasy Nature\Scripts\WindControl.cs" />
-    <Compile Include="Assets\Idyllic Fantasy Nature\Scripts\PlayerMovement.cs" />
-    <Compile Include="Assets\Idyllic Fantasy Nature\Scripts\CameraMovement.cs" />
+    <Compile Include="Assets\ExplosiveLLC\Warrior FREE\Code\WarriorMovementController.cs" />
+    <Compile Include="Assets\ExplosiveLLC\Demo Elements\Code\GUIControls.cs" />
+    <Compile Include="Assets\ExplosiveLLC\SuperCharacterController\Scripts\Gravity.cs" />
+    <Compile Include="Assets\ExplosiveLLC\Warrior FREE\Code\WarriorInputController.cs" />
+    <Compile Include="Assets\ExplosiveLLC\SuperCharacterController\SuperCharacterController\Math3d.cs" />
+    <Compile Include="Assets\ExplosiveLLC\SuperCharacterController\Scripts\PlayerCamera.cs" />
+    <Compile Include="Assets\ExplosiveLLC\Warrior FREE\Code\WarriorData.cs" />
+    <Compile Include="Assets\ExplosiveLLC\Demo Elements\Code\CameraController.cs" />
+    <Compile Include="Assets\Wave.cs" />
+    <Compile Include="Assets\ExplosiveLLC\SuperCharacterController\SuperCharacterController\Core\SuperCollider.cs" />
+    <Compile Include="Assets\ExplosiveLLC\SuperCharacterController\Scripts\PlayerInputController.cs" />
+    <Compile Include="Assets\ExplosiveLLC\SuperCharacterController\SuperCharacterController\Core\SuperCollisionType.cs" />
+    <Compile Include="Assets\ExplosiveLLC\SuperCharacterController\Scripts\PlayerMachineDebug.cs" />
+    <Compile Include="Assets\ExplosiveLLC\SuperCharacterController\Scripts\SimpleStateMachine.cs" />
+    <Compile Include="Assets\ExplosiveLLC\SuperCharacterController\SuperCharacterController\DebugDraw.cs" />
+    <Compile Include="Assets\ExplosiveLLC\Warrior FREE\Code\WarriorAnimatorEvents.cs" />
+    <Compile Include="Assets\ExplosiveLLC\SuperCharacterController\SuperCharacterController\Core\SuperMath.cs" />
+    <Compile Include="Assets\ExplosiveLLC\SuperCharacterController\SuperCharacterController\Core\BruteForceMesh.cs" />
+    <Compile Include="Assets\ExplosiveLLC\SuperCharacterController\SuperCharacterController\Core\SuperCharacterController.cs" />
+    <Compile Include="Assets\ExplosiveLLC\Warrior FREE\Code\AnimatorParentMove.cs" />
+    <Compile Include="Assets\ExplosiveLLC\SuperCharacterController\SuperCharacterController\Core\BSPTree.cs" />
+    <Compile Include="Assets\ExplosiveLLC\SuperCharacterController\SuperCharacterController\Core\SuperStateMachine.cs" />
+    <Compile Include="Assets\ExplosiveLLC\Warrior FREE\Code\WarriorInputSystemController.cs" />
+    <Compile Include="Assets\ExplosiveLLC\SuperCharacterController\Scripts\PlayerMachine.cs" />
+    <Compile Include="Assets\ExplosiveLLC\Warrior FREE\Code\WarriorTiming.cs" />
+    <Compile Include="Assets\ExplosiveLLC\Warrior FREE\Code\WarriorController.cs" />
+    <Compile Include="Assets\ExplosiveLLC\Warrior FREE\Code\IKHands.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Fantasy Forest Environment Free Sample\StandardNoCulling.shader" />
-    <None Include="Assets\Idyllic Fantasy Nature\Shader\CustomLighting.hlsl" />
+    <None Include="Assets\ExplosiveLLC\SuperCharacterController\SuperCharacterController\README.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
