@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\ExplosiveLLC\Warrior FREE\Code\WarriorMovementController.cs" />
+    <Compile Include="Assets\autoattack.cs" />
     <Compile Include="Assets\ExplosiveLLC\Demo Elements\Code\GUIControls.cs" />
     <Compile Include="Assets\ExplosiveLLC\SuperCharacterController\Scripts\Gravity.cs" />
     <Compile Include="Assets\ExplosiveLLC\Warrior FREE\Code\WarriorInputController.cs" />
