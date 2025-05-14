@@ -65,6 +65,7 @@ public class Enemy : MonoBehaviour
             }
         }else
         {
+            gameController.gold += 3;
             gameController.enemiesAlive--;
             Destroy(self);
         }

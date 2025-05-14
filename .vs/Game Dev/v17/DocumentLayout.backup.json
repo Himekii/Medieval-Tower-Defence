@@ -40,9 +40,10 @@
               "RelativeDocumentMoniker": "Assets\\Towers.cs",
               "ToolTip": "C:\\Users\\Gaming PC\\Game Dev\\Assets\\Towers.cs",
               "RelativeToolTip": "Assets\\Towers.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAADAAAAA9AAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABIAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-11T17:41:51.851Z"
+              "WhenOpened": "2025-05-11T17:41:51.851Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -52,7 +53,7 @@
               "RelativeDocumentMoniker": "Assets\\GameController.cs",
               "ToolTip": "C:\\Users\\Gaming PC\\Game Dev\\Assets\\GameController.cs",
               "RelativeToolTip": "Assets\\GameController.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABwAAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAACMAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-11T17:39:07.319Z",
               "EditorCaption": ""
@@ -65,9 +66,10 @@
               "RelativeDocumentMoniker": "Assets\\Enemy.cs",
               "ToolTip": "C:\\Users\\Gaming PC\\Game Dev\\Assets\\Enemy.cs",
               "RelativeToolTip": "Assets\\Enemy.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAKAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-11T17:02:07.652Z"
+              "WhenOpened": "2025-05-11T17:02:07.652Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -77,9 +79,10 @@
               "RelativeDocumentMoniker": "Assets\\ExplosiveLLC\\SuperCharacterController\\SuperCharacterController\\Core\\SuperCharacterController.cs",
               "ToolTip": "C:\\Users\\Gaming PC\\Game Dev\\Assets\\ExplosiveLLC\\SuperCharacterController\\SuperCharacterController\\Core\\SuperCharacterController.cs",
               "RelativeToolTip": "Assets\\ExplosiveLLC\\SuperCharacterController\\SuperCharacterController\\Core\\SuperCharacterController.cs",
-              "ViewState": "AgIAAFoBAAAAAAAAAAAAABQAAAAXAAAAAAAAAA==",
+              "ViewState": "AgIAAKsBAAAAAAAAAAAhwL8BAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-02T17:46:10.822Z"
+              "WhenOpened": "2025-03-02T17:46:10.822Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -91,7 +94,8 @@
               "RelativeToolTip": "Assets\\ExplosiveLLC\\Warrior FREE\\Code\\WarriorInputController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-02T17:44:53.318Z"
+              "WhenOpened": "2025-03-02T17:44:53.318Z",
+              "EditorCaption": ""
             }
           ]
         }
