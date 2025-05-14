@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private GameObject line1;
+    private GameObject[] lines;
+    private GameObject line;
     public GameObject self;
 
-    public float moveSpeed = 0.05f;
-    public float timer;
-    static Vector3 destination;
-    public int ind;
+    private float moveSpeed = 0.05f;
+    private float timer = 0;
+    private int ind = 0;
+    private Vector3 destination;
     private LineRenderer lineRenderer;
     private int numPoints;
     public int health = 100;
@@ -20,17 +21,13 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        line1 = GameObject.Find("Path 1");
-        ind = 1;
-        timer = 0;
-        updateDest();
+        lines = GameObject.FindGameObjectsWithTag("Path");
+        int i = Random.Range(0,lines.Length-1);
+        line = lines[i];
+        lineRenderer = line.GetComponent<LineRenderer>();
+        numPoints = lineRenderer.positionCount;
         gameController = GameObject.FindWithTag("MainCamera").GetComponent<GameController>();
-    }
-
-    void updateDest()
-    {
-        LineRenderer lineRenderer = line1.GetComponent<LineRenderer>();
-        destination = line1.transform.position + lineRenderer.GetPosition(ind);
+        destination = line.transform.position + lineRenderer.GetPosition(ind);
     }
 
 
@@ -39,27 +36,31 @@ public class Enemy : MonoBehaviour
     {
         if (health > 0)
         {
-            LineRenderer lineRenderer = line1.GetComponent<LineRenderer>();
-            int numPoints = lineRenderer.positionCount;
+            
             timer += Time.deltaTime * moveSpeed;
 
 
-            if (self.transform.position != destination)
+            if (transform.position != destination)
             {
-                self.transform.position = Vector3.MoveTowards(self.transform.position, destination, timer);
+                transform.LookAt(destination);
+                transform.position = Vector3.MoveTowards(transform.position, destination, timer);
             }
             else
             {
-                if (ind < numPoints - 1)
+                if (ind < numPoints-1)
                 {
                     ind++;
-                    updateDest();
+                    destination = line.transform.position + lineRenderer.GetPosition(ind);
                 }
                 else
                 {
-                    ind = 1;
-                    self.transform.position = line1.transform.position + lineRenderer.GetPosition(0);
-                    updateDest();
+
+                    gameController.lives--;
+                    gameController.enemiesAlive--;
+                    Destroy(self);
+                    //ind = 1;
+                    //self.transform.position = line1.transform.position + lineRenderer.GetPosition(0);
+                    //updateDest();
                 }
             }
         }else

@@ -6,11 +6,12 @@ public class Towers : MonoBehaviour
 {
 
     private GameObject closestEnemy;
+    public GameObject self;
     public Animator anim;
     public int atkRange;
     public bool isRanged;
     private Enemy enemyClass;
-    public int damage = 20;
+    public int damage = 0;
 
     void Start()
     {
@@ -23,9 +24,8 @@ public class Towers : MonoBehaviour
         //Beam (ray traced)
     }
 
-    void GetClosestEnemy()
+    Enemy GetClosestEnemy(GameObject[] enemies)
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         float minDist = Mathf.Infinity;
         foreach (GameObject e in enemies)
         {
@@ -35,31 +35,38 @@ public class Towers : MonoBehaviour
                 minDist = dist;
                 closestEnemy = e;
             }
+
         }
+        return closestEnemy.GetComponent<Enemy>();
     }
+
+
 
     void Update()
     {
-        GetClosestEnemy();
-        //Makes the towers look towards the enemy
-        transform.LookAt(closestEnemy.transform.position);
-        float distance = Vector3.Distance(transform.position, closestEnemy.transform.position);
-        if (distance <= atkRange)
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if (enemies.Length > 0)
         {
-            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Attack1"))
+            enemyClass = GetClosestEnemy(enemies);
+            //Makes the towers look towards the enemy
+            transform.LookAt(closestEnemy.transform.position);
+            float distance = Vector3.Distance(transform.position, closestEnemy.transform.position);
+            if (distance <= atkRange)
             {
-                anim.Play("Attack1");
-                if (isRanged)
+                if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Attack1"))
                 {
-                    RangedAttack();
-                }
-                else
-                {
-                    enemyClass = closestEnemy.GetComponent<Enemy>();
-                    enemyClass.health -= damage;
+                    anim.Play("Attack1");
+                    if (isRanged)
+                    {
+                        RangedAttack();
+                        enemyClass.health -= damage;
+                    }
+                    else
+                    {
+                        enemyClass.health -= damage;
+                    }
                 }
             }
         }
-        
     }
-}
+};

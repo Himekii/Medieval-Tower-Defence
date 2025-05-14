@@ -18,7 +18,6 @@ namespace WarriorAnimsFREE
 				Jumping();
 			}
 
-			Debug();
 		}
 
 		private void Attacking()
@@ -38,12 +37,6 @@ namespace WarriorAnimsFREE
 					}
 				}
 			}
-		}
-
-		private void Debug()
-		{
-			if (GUI.Button(new Rect(600, 15, 120, 30), "Debug Controller")) { warriorController.ControllerDebug(); }
-			if (GUI.Button(new Rect(600, 50, 120, 30), "Debug Animator")) { warriorController.AnimatorDebug(); }
 		}
 	}
 }
