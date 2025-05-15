@@ -8,7 +8,8 @@ public class Enemy : MonoBehaviour
     public GameObject self;
 
     private float moveSpeed = 0.05f;
-    private float timer = 0;
+    public float timer = 0;
+    public float tempTimer = 0;
     private int ind = 0;
     private Vector3 destination;
     public LineRenderer lineRenderer;
@@ -32,7 +33,15 @@ public class Enemy : MonoBehaviour
     {
         if (health > 0)
         {
-            
+            if (Input.GetKeyDown("escape"))
+            {
+                gameController.pauseUI.SetActive(true);
+                Time.timeScale = 0;
+                tempTimer = timer;
+                timer = 0;
+
+            }
+
             timer += Time.deltaTime * moveSpeed;
 
 

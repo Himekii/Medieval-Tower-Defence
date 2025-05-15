@@ -19,11 +19,6 @@ public class Towers : MonoBehaviour
         anim = child.GetComponent<Animator>();
     }
 
-    void RangedAttack()
-    {
-        //Beam (ray traced)
-    }
-
     Enemy GetClosestEnemy(GameObject[] enemies)
     {
         float minDist = Mathf.Infinity;
@@ -56,15 +51,7 @@ public class Towers : MonoBehaviour
                 if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Attack1"))
                 {
                     anim.Play("Attack1");
-                    if (isRanged)
-                    {
-                        RangedAttack();
-                        enemyClass.health -= damage;
-                    }
-                    else
-                    {
-                        enemyClass.health -= damage;
-                    }
+                    enemyClass.health -= damage;
                 }
             }
         }

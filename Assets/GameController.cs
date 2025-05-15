@@ -2,13 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static System.Math;
 
 public class GameController : MonoBehaviour
 {
 
     public GameObject gameOverUI;
+    public GameObject pauseUI;
 
     private Vector3 mousePos;
+
+    public Camera cam;
+
+    private readonly Vector2 targetAspectRatio = new(16, 9);
+    private readonly Vector2 rectCenter = new(0.5f, 0.5f);
+
+    private Vector2 lastResolution;
 
     private GameObject originalEnemy;
     private GameObject originalMage;
@@ -27,6 +36,8 @@ public class GameController : MonoBehaviour
     private int enemiesToSpawn = 0;
     public int lives = 5;
     private float timer = 0;
+    private float fpsTimer = 0;
+    private float tempTimer = 0;
     private bool placingTower = false;
     public bool isDead = false;
 
@@ -41,6 +52,9 @@ public class GameController : MonoBehaviour
     void Start()
     {
         Screen.fullScreen = true;
+
+        Debug.Log(Application.platform);
+
 
         paths = GameObject.FindGameObjectsWithTag("Path");
 
@@ -65,9 +79,30 @@ public class GameController : MonoBehaviour
 
     }
 
+    public void LateUpdate()
+    {
+        var currentScreenResolution = new Vector2(Screen.width, Screen.height);
+
+        // Don't run all the calculations if the screen resolution has not changed
+        if (lastResolution != currentScreenResolution)
+        {
+            CalculateCameraRect(currentScreenResolution);
+        }
+
+        lastResolution = currentScreenResolution;
+    }
+
+    private void CalculateCameraRect(Vector2 currentScreenResolution)
+    {
+        var normalizedAspectRatio = targetAspectRatio / currentScreenResolution;
+        var size = normalizedAspectRatio / Mathf.Max(normalizedAspectRatio.x, normalizedAspectRatio.y);
+        cam.rect = new Rect(default, size) { center = rectCenter };
+    }
+
     // Update is called once per frame
     void Update()
     {
+
         if (placingTower == true)
         {
             mousePos = Input.mousePosition;
@@ -91,15 +126,28 @@ public class GameController : MonoBehaviour
             }
         }
 
-        timer += Time.deltaTime;
-        if (enemiesAlive == 0 && timer > 3 && !isDead)
+        if (enemiesAlive == 0 && !isDead)
         {
-            int i = Random.Range(0, paths.Length - 1);
-            path = paths[i];
-            lineRenderer = path.GetComponent<LineRenderer>();
-            wave++;
-            enemiesToSpawn += wave;
+            if (Input.GetKeyDown("escape"))
+            {
+                Debug.Log("THERE");
+                pauseUI.SetActive(true);
+                Time.timeScale = 0;
+                tempTimer = timer;
+                timer = 0;
+            }
+            if (timer > 3)
+            {
+                int i = Random.Range(0, paths.Length - 1);
+                path = paths[i];
+                lineRenderer = path.GetComponent<LineRenderer>();
+                wave++;
+                enemiesToSpawn += wave;
+            }
         }
+
+        timer += Time.deltaTime;
+        
         if (enemiesToSpawn > 0 && timer > 1)
         {
             SpawnEnemy();
@@ -137,6 +185,20 @@ public class GameController : MonoBehaviour
     IEnumerator waiter(int seconds)
     {
         yield return new WaitForSecondsRealtime(seconds);
+    }
+
+    public void resume()
+    {
+
+
+        timer = tempTimer;
+        pauseUI.SetActive(false);
+        Time.timeScale = 1;
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject e in enemies)
+        {
+            e.GetComponent<Enemy>().timer = e.GetComponent<Enemy>().tempTimer;
+        }
     }
 
     public void gameOver()
@@ -179,11 +241,23 @@ public class GameController : MonoBehaviour
         GameObject enemiesui = GameObject.Find("Enemies Alive");
         GameObject waveui = GameObject.Find("Wave");
         GameObject goldui = GameObject.Find("Gold");
+        GameObject fpsui = GameObject.Find("FPS");
 
         livesui.GetComponent<TMPro.TextMeshProUGUI>().text = "Lives: " + lives.ToString();
         enemiesui.GetComponent<TMPro.TextMeshProUGUI>().text = "Enemies Left: " + enemiesAlive.ToString();
         waveui.GetComponent<TMPro.TextMeshProUGUI>().text = "Wave: " + wave.ToString();
         goldui.GetComponent<TMPro.TextMeshProUGUI>().text = "Gold: " + gold.ToString();
+
+        fpsTimer += Time.deltaTime;
+
+        if (fpsTimer > 2)
+        {
+            fpsTimer = 0;
+            fpsui.GetComponent<TMPro.TextMeshProUGUI>().text = "FPS: " + System.Math.Round(1.0f / Time.deltaTime, 1).ToString();
+        }
+        
+
+
 
     }
 

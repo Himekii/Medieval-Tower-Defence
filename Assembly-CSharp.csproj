@@ -116,6 +116,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\ExplosiveLLC\SuperCharacterController\SuperCharacterController\Core\SuperStateMachine.cs" />
     <Compile Include="Assets\ExplosiveLLC\Warrior FREE\Code\WarriorInputSystemController.cs" />
+    <Compile Include="Assets\menu.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\ExplosiveLLC\SuperCharacterController\Scripts\PlayerMachine.cs" />
     <Compile Include="Assets\ExplosiveLLC\Warrior FREE\Code\WarriorTiming.cs" />
