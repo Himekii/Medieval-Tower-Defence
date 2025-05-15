@@ -4,27 +4,23 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private GameObject[] lines;
-    private GameObject line;
+    public GameObject line;
     public GameObject self;
 
     private float moveSpeed = 0.05f;
     private float timer = 0;
     private int ind = 0;
     private Vector3 destination;
-    private LineRenderer lineRenderer;
+    public LineRenderer lineRenderer;
     private int numPoints;
     public int health = 100;
     private GameController gameController;
+    private bool isDead = false;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        lines = GameObject.FindGameObjectsWithTag("Path");
-        int i = Random.Range(0,lines.Length-1);
-        line = lines[i];
-        lineRenderer = line.GetComponent<LineRenderer>();
         numPoints = lineRenderer.positionCount;
         gameController = GameObject.FindWithTag("MainCamera").GetComponent<GameController>();
         destination = line.transform.position + lineRenderer.GetPosition(ind);
@@ -54,8 +50,15 @@ public class Enemy : MonoBehaviour
                 }
                 else
                 {
-
                     gameController.lives--;
+
+                    if (gameController.lives == 0 && !isDead)
+                    {
+                        isDead = true;
+                        gameController.isDead = true;
+                        gameController.gameOver();
+                    }
+
                     gameController.enemiesAlive--;
                     Destroy(self);
                     //ind = 1;

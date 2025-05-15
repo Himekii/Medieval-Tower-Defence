@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
+
+    public GameObject gameOverUI;
 
     private Vector3 mousePos;
 
@@ -15,12 +18,17 @@ public class GameController : MonoBehaviour
     private GameObject targetTower;
     private GameObject towerToBeMade;
 
-    public int wave = 0;
+    private GameObject path;
+    private GameObject[] paths;
+    private LineRenderer lineRenderer;
+
+    private int wave = 0;
     public int enemiesAlive = 0;
-    public int enemiesToSpawn = 0;
+    private int enemiesToSpawn = 0;
     public int lives = 5;
     private float timer = 0;
-    public bool placingTower = false;
+    private bool placingTower = false;
+    public bool isDead = false;
 
     public int gold = 30;
     private int goldTemp;
@@ -34,7 +42,7 @@ public class GameController : MonoBehaviour
     {
         Screen.fullScreen = true;
 
-
+        paths = GameObject.FindGameObjectsWithTag("Path");
 
         originalEnemy = GameObject.FindWithTag("Skeleton");
 
@@ -49,11 +57,11 @@ public class GameController : MonoBehaviour
 
         towerRanges.Add(originalKnight, 50);
         towerIsRanged.Add(originalKnight, false);
-        towerDamages.Add(originalKnight, 20);
+        towerDamages.Add(originalKnight, 25);
 
         towerRanges.Add(originalWarrior, 60);
         towerIsRanged.Add(originalWarrior, false);
-        towerDamages.Add(originalWarrior, 30);
+        towerDamages.Add(originalWarrior, 35);
 
     }
 
@@ -83,10 +91,12 @@ public class GameController : MonoBehaviour
             }
         }
 
-
         timer += Time.deltaTime;
-        if (enemiesAlive == 0 && timer > 3)
+        if (enemiesAlive == 0 && timer > 3 && !isDead)
         {
+            int i = Random.Range(0, paths.Length - 1);
+            path = paths[i];
+            lineRenderer = path.GetComponent<LineRenderer>();
             wave++;
             enemiesToSpawn += wave;
         }
@@ -102,9 +112,12 @@ public class GameController : MonoBehaviour
     {
         GameObject newEnemy = GameObject.Instantiate(originalEnemy);
         newEnemy.AddComponent<Enemy>();
-        newEnemy.transform.position = originalEnemy.transform.position;
-        newEnemy.tag = "Enemy";
+        newEnemy.GetComponent<Enemy>().line = path;
+        newEnemy.GetComponent<Enemy>().lineRenderer = lineRenderer;
         newEnemy.GetComponent<Enemy>().self = newEnemy;
+        newEnemy.transform.position = path.transform.position + lineRenderer.GetPosition(0);
+
+        newEnemy.tag = "Enemy";
         enemiesAlive++;
     }
 
@@ -126,43 +139,84 @@ public class GameController : MonoBehaviour
         yield return new WaitForSecondsRealtime(seconds);
     }
 
+    public void gameOver()
+    {
+        GameObject[] towers = GameObject.FindGameObjectsWithTag("Player");
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject tower in towers)
+        {
+            tower.SetActive(false);
+        }
+        foreach (GameObject enemy in enemies)
+        {
+            enemy.SetActive(false);
+        }
+        gameOverUI.SetActive(true);
+    }
+    public void play()
+    {
+        SceneManager.LoadScene("Game");
+    }
+
+    public void restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    
+    public void mainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void quit()
+    {
+        Application.Quit();
+    }
+
     private void OnGUI()
     {
-        GUI.color = Color.white;
-        GUI.skin.label.fontSize = 30;
-        GUI.Label(new Rect(50, 30, 240, 60), "Lives: " + lives.ToString());
-        GUI.Label(new Rect(50, 100, 240, 60), "Enemies Left: " + enemiesAlive.ToString());
-        GUI.Label(new Rect(50, 170, 240, 60), "Wave: " + wave.ToString());
-        GUI.Label(new Rect(50, 240, 240, 60), "Gold: " + gold.ToString());
-        if (GUI.Button(new Rect(300, 30, 240, 60), "Mage (10g)"))
+        GameObject livesui = GameObject.Find("Lives");
+        GameObject enemiesui = GameObject.Find("Enemies Alive");
+        GameObject waveui = GameObject.Find("Wave");
+        GameObject goldui = GameObject.Find("Gold");
+
+        livesui.GetComponent<TMPro.TextMeshProUGUI>().text = "Lives: " + lives.ToString();
+        enemiesui.GetComponent<TMPro.TextMeshProUGUI>().text = "Enemies Left: " + enemiesAlive.ToString();
+        waveui.GetComponent<TMPro.TextMeshProUGUI>().text = "Wave: " + wave.ToString();
+        goldui.GetComponent<TMPro.TextMeshProUGUI>().text = "Gold: " + gold.ToString();
+
+    }
+
+    public void spawnMage()
+    {
+        if (placingTower == false && gold >= 10)
         {
-            if (placingTower == false && gold >= 10)
-            {
-                goldTemp = 10;
-                towerToBeMade = originalMage;
-                targetTower = GameObject.Instantiate(originalMage);
-                placingTower = true;
-            }
+            goldTemp = 10;
+            towerToBeMade = originalMage;
+            targetTower = GameObject.Instantiate(originalMage);
+            placingTower = true;
         }
-        if (GUI.Button(new Rect(300, 100, 240, 60), "Knight (15g)")) 
+    }
+
+    public void spawnKnight()
+    {
+        if (placingTower == false && gold >= 15)
         {
-            if (placingTower == false && gold >= 15)
-            {
-                goldTemp = 15;
-                towerToBeMade = originalKnight;
-                targetTower = GameObject.Instantiate(originalKnight); 
-                placingTower = true;
-            }
+            goldTemp = 15;
+            towerToBeMade = originalKnight;
+            targetTower = GameObject.Instantiate(originalKnight);
+            placingTower = true;
         }
-        if (GUI.Button(new Rect(300, 170, 240, 60), "Warrior (20g)"))
+    }
+    
+    public void spawnWarrior()
+    {
+        if (placingTower == false && gold >= 20)
         {
-            if (placingTower == false && gold >= 20)
-            {
-                goldTemp = 20;
-                towerToBeMade = originalWarrior;
-                targetTower = GameObject.Instantiate(originalWarrior); 
-                placingTower = true;
-            }
+            goldTemp = 20;
+            towerToBeMade = originalWarrior;
+            targetTower = GameObject.Instantiate(originalWarrior);
+            placingTower = true;
         }
     }
 }

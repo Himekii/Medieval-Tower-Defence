@@ -10,6 +10,9 @@ TagManager:
   - Mage
   - Knight
   - Warrior
+  - Collide
+  - Canvas
+  - UI1
   layers:
   - Default
   - TransparentFX
