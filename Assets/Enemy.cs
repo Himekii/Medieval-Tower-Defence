@@ -33,11 +33,11 @@ public class Enemy : MonoBehaviour
     {
         if (health > 0)
         {
-            if (Input.GetKeyDown("escape"))
+            if (Input.GetKeyDown("escape") && !gameController.pauseUI.activeSelf)
             {
+                tempTimer = timer;
                 gameController.pauseUI.SetActive(true);
                 Time.timeScale = 0;
-                tempTimer = timer;
                 timer = 0;
 
             }

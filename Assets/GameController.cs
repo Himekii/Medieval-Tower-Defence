@@ -128,7 +128,7 @@ public class GameController : MonoBehaviour
 
         if (enemiesAlive == 0 && !isDead)
         {
-            if (Input.GetKeyDown("escape"))
+            if (Input.GetKeyDown("escape") && !pauseUI.activeSelf)
             {
                 Debug.Log("THERE");
                 pauseUI.SetActive(true);
